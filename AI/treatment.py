@@ -52,8 +52,6 @@ def check_up(patient_id, name, dob):
         speak('আপনি কি আগে কোনো ওষুধ খেয়েছেন? যদি খেয়ে থাকেন তো বলুন হ্যাঁ আর নাহলে বলুন না.')
         reply= takecmnd().lower()
         prescription= {
-
-            'medicine name': 'frequency',
             'calpol-650': 'twice in a day after breakfast and evening snacks',
             'clavam-625': 'once in a day after lunch',
             'payoz-40': 'twice in a day after breakfast and evening snacks'
@@ -72,7 +70,54 @@ def check_up(patient_id, name, dob):
             return arg
 
 
+    
+    if 'stomach' in problem:
 
+        speak('আপনি কতদিন ধরে এই ব্যথায় ভুগছেন?')
+        suffering_days= takecmnd().lower()
+        speak('আপনি কি আগে কোনো ওষুধ খেয়েছেন? যদি খেয়ে থাকেন তো বলুন হ্যাঁ আর নাহলে বলুন না.')
+        reply= takecmnd().lower()
+        prescription= {
+
+
+
+            'payoz-40': 'twice in a day after lunch and evening dinner',
+            'Drotrewd': 'twice in a day after lunch and evening dinner'
+
+
+        }
+
+        ref1 = db.reference(f'/Patients/{patient_id}/prescrptions/{today}')
+        ref1.update(prescription)
+        arg= mpp(name,dob, 'Stomach Pain', prescription)
+
+        if arg is True:
+            return True
+
+        else:
+            return arg
+
+    if 'blood-pressure' or 'bloodpressure' or 'blood pressure' in problem:
+
+        speak('আপনার সর্বোচ্চ ব্লাড প্রেসার কোটো')
+        suffering_days = takecmnd().lower()
+        speak('আপনি কি আগে কোনো ওষুধ খেয়েছেন? যদি খেয়ে থাকেন তো বলুন হ্যাঁ আর নাহলে বলুন না.')
+        reply = takecmnd().lower()
+        prescription = {
+
+            'norvasc': 'once in a day after dinner',
+
+        }
+
+        ref1 = db.reference(f'/Patients/{patient_id}/prescrptions/{today}')
+        ref1.update(prescription)
+        arg = mpp(name, dob, 'Stomach Pain', prescription)
+
+        if arg is True:
+            return True
+
+        else:
+            return arg
 
     else:
         return False
